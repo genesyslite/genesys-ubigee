@@ -6,7 +6,7 @@
         "framework",
         "laravel"
     ],
-    "minimum-stability": "dev",
+    "homepage": "https://github.com/genesyslite/genesys-ubigee",
     "license": "MIT",
     "authors": [
         {
@@ -28,5 +28,10 @@
                 "GenesysLite\\GenesysUbigee\\Providers\\GenesysUbigeeServiceProvider"
             ]
         }
-    }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
