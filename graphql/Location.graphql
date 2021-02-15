@@ -1,0 +1,85 @@
+type Country {
+    id: ID!
+    active: Boolean!
+    description: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+    departments: [Department] @hasMany
+}
+type Department {
+    id: ID!
+    active: Boolean!
+    description: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+    country_id: String!
+    country: Country! @belongsTo
+    provinces: [Province] @hasMany
+}
+type Province {
+    id: ID!
+    active: Boolean!
+    description: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+    department_id: String!
+    department: Department! @belongsTo
+    districts: [District] @hasMany
+}
+type District {
+    id: ID!
+    active: Boolean!
+    description: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+    province: Province! @belongsTo
+}
+
+
+input CreateCountryInput {
+    id: ID! @rules(apply: ["size:2"])
+    active: Boolean!
+    description: String!
+}
+input CreateDepartmentInput {
+    id: ID! @rules(apply: ["size:2"])
+    active: Boolean!
+    description: String!
+    country_id: String!
+}
+input CreateProvinceInput {
+    id: ID! @rules(apply: ["size:4"])
+    active: Boolean!
+    description: String!
+    department_id: String!
+}
+input CreateDistrictInput {
+    id: ID!
+    active: Boolean!
+    description: String!
+    province_id: String!
+}
+
+
+extend type Query {
+    countries: [Country!]! @all
+    country(id: ID @eq): Country @find
+    departments: [Department!]! @all
+    department(id: ID @eq): Department @find
+    provinces: [Province!]! @all
+    province(id: ID @eq): Province @find
+    districts: [District!]! @all
+    district(id: ID @eq): District @find
+}
+extend type Mutation {
+    createCountry(input: CreateCountryInput! @spread): Country @create
+    updateCountry(input: CreateCountryInput! @spread): Country @update
+    deleteCountry(id: ID!): Country @delete
+    createDepartment(input: CreateDepartmentInput! @spread): Department @create
+    updateDepartment(input: CreateDepartmentInput! @spread): Department @update
+    deleteDepartment(id: ID!): Department @delete
+    createProvince(input: CreateProvinceInput! @spread): Province @create
+    updateProvince(input: CreateProvinceInput! @spread): Province @update
+    deleteProvince(id: ID!): Province @delete
+    createDistrict(input: CreateDistrictInput! @spread): District @create
+}

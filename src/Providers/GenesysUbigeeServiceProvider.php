@@ -17,6 +17,9 @@ class GenesysUbigeeServiceProvider extends ServiceProvider
             __DIR__ . '/../../config/genesysUbigee.php',
             'genesysUbigee'
         );
+        $this->publishes([
+            __DIR__.'/../../graphql' => base_path('/graphql/GenesysUbigee'),
+        ], 'genesys-ubigee-schema');
     }
 
     /**
